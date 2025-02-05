@@ -13,7 +13,7 @@ import user from './routes/user/index.js';
 import { verifyToken } from './middlewares/verify-token.js';
 
 const app = express();
-dotenv.config();
+// dotenv.config();
 
 // environment
 const PORT = process.env?.PORT || 8080;

@@ -16,7 +16,9 @@ const app = express();
 const process = dotenv.config();
 
 // environment
-const PORT = process.env.PORT || 8080;
+const PORT = process.env?.PORT || 8080;
+
+console.log('Environment NODE_ENV', process.env);
 
 app.use(bodyParser.json(), cors(), bodyParser.urlencoded({ extended: true }));
 

@@ -12,8 +12,6 @@ let dbConfig = {
   bigIntAsNumber: true
 }
 
-console.log('Environment NODE_ENV', process.env.NODE_ENV);
-
 if(process.env?.NODE_ENV === 'production') {
   dbConfig = {
     ...dbConfig,

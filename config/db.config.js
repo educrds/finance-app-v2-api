@@ -1,30 +1,32 @@
 import mariadb from 'mariadb';
 import dotenv from 'dotenv';
 
-dotenv.config();
-let dbConfig = {
-  host: process.parsed.HOST,
-  database: process.parsed.DATABASE,
-  user: process.parsed.USER,
-  port: process.parsed.PORT,
-  password: process.parsed.PASSWORD,
-  connectionLimit: 3,
-  bigIntAsNumber: true
-}
+const dbConfig = {}
+// dotenv.config();
 
-console.log('NODE_ENV', process.env.NODE_ENV);
-console.log('process ENV', process);
+// let dbConfig = {
+//   host: process.parsed.HOST,
+//   database: process.parsed.DATABASE,
+//   user: process.parsed.USER,
+//   port: process.parsed.PORT,
+//   password: process.parsed.PASSWORD,
+//   connectionLimit: 3,
+//   bigIntAsNumber: true
+// }
 
-if(process.env.NODE_ENV === 'production') {
-  dbConfig = {
-    ...dbConfig,
-    host: process.parsed.RDS_HOSTNAME,
-    database: process.parsed.RDS_DATABASE,
-    user: process.parsed.RDS_USER,
-    port: process.parsed.RDS_PORT,
-    password: process.parsed.RDS_PASSWORD,
-  }
-}
+// console.log('NODE_ENV', process.env.NODE_ENV);
+// console.log('process ENV', process);
+
+// if(process.env.NODE_ENV === 'production') {
+//   dbConfig = {
+//     ...dbConfig,
+//     host: process.parsed.RDS_HOSTNAME,
+//     database: process.parsed.RDS_DATABASE,
+//     user: process.parsed.RDS_USER,
+//     port: process.parsed.RDS_PORT,
+//     password: process.parsed.RDS_PASSWORD,
+//   }
+// }
 
 const pool = mariadb.createPool(dbConfig);
 

@@ -15,7 +15,7 @@ import { verifyToken } from './middlewares/verify-token.js';
 const app = express();
 
 // environment
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 
 
 app.use(bodyParser.json(), cors(), bodyParser.urlencoded({ extended: true }));

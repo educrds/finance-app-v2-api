@@ -13,8 +13,10 @@ let dbConfig = {
   user: !isProduction ? process.env.USER : process.env.RDS_USER,
   port: !isProduction ? process.env.DB_PORT : process.env.RDS_DB_PORT,
   password: !isProduction ? process.env.PASSWORD : process.env.RDS_PASSWORD,
-  connectionLimit: 3,
-  bigIntAsNumber: true 
+  connectionLimit: 10,
+  acquireTimeout: 20000,
+  bigIntAsNumber: true,
+  debug: true
 }
 
 const pool = mariadb.createPool(dbConfig);

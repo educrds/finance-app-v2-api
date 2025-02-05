@@ -18,7 +18,8 @@ const process = dotenv.config();
 // environment
 const PORT = process.env?.PORT || 8080;
 
-console.log('Environment NODE_ENV', process.env);
+console.log('Process', process);
+console.log('Process.env', process.env);
 
 app.use(bodyParser.json(), cors(), bodyParser.urlencoded({ extended: true }));
 

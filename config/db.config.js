@@ -13,6 +13,7 @@ let dbConfig = {
 }
 
 console.log('NODE_ENV', process.env.NODE_ENV);
+console.log('process ENV', process);
 
 if(process.env.NODE_ENV === 'production') {
   dbConfig = {

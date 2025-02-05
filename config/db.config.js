@@ -12,8 +12,9 @@ let dbConfig = {
   bigIntAsNumber: true
 }
 
-if(process.env.NODE_ENV === 'production') {
-  console.log('Connecting to RDS database');
+console.log('Environment NODE_ENV', process.env.NODE_ENV);
+
+if(process.env?.NODE_ENV === 'production') {
   dbConfig = {
     ...dbConfig,
     host: process.parsed.RDS_HOSTNAME,

@@ -3,25 +3,25 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 let dbConfig = {
-  host: dotenv.config().parsed.HOST,
-  database: dotenv.config().parsed.DATABASE,
-  user: dotenv.config().parsed.USER,
-  port: dotenv.config().parsed.PORT,
-  password: dotenv.config().parsed.PASSWORD,
+  host: process.parsed.HOST,
+  database: process.parsed.DATABASE,
+  user: process.parsed.USER,
+  port: process.parsed.PORT,
+  password: process.parsed.PASSWORD,
   connectionLimit: 3,
   bigIntAsNumber: true
 }
 
-console.log('NODE_ENV', dotenv.config().env.NODE_ENV);
+console.log('NODE_ENV', process.env.NODE_ENV);
 
-if(dotenv.config().env.NODE_ENV === 'production') {
+if(process.env.NODE_ENV === 'production') {
   dbConfig = {
     ...dbConfig,
-    host: dotenv.config().parsed.RDS_HOSTNAME,
-    database: dotenv.config().parsed.RDS_DATABASE,
-    user: dotenv.config().parsed.RDS_USER,
-    port: dotenv.config().parsed.RDS_PORT,
-    password: dotenv.config().parsed.RDS_PASSWORD,
+    host: process.parsed.RDS_HOSTNAME,
+    database: process.parsed.RDS_DATABASE,
+    user: process.parsed.RDS_USER,
+    port: process.parsed.RDS_PORT,
+    password: process.parsed.RDS_PASSWORD,
   }
 }
 

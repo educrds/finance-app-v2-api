@@ -1,32 +1,16 @@
 import mariadb from 'mariadb';
-import dotenv from 'dotenv';
 
-const dbConfig = {}
-// dotenv.config();
+const isProduction = process.env.NODE_ENV === 'production';
 
-// let dbConfig = {
-//   host: process.parsed.HOST,
-//   database: process.parsed.DATABASE,
-//   user: process.parsed.USER,
-//   port: process.parsed.PORT,
-//   password: process.parsed.PASSWORD,
-//   connectionLimit: 3,
-//   bigIntAsNumber: true
-// }
-
-// console.log('NODE_ENV', process.env.NODE_ENV);
-// console.log('process ENV', process);
-
-// if(process.env.NODE_ENV === 'production') {
-//   dbConfig = {
-//     ...dbConfig,
-//     host: process.parsed.RDS_HOSTNAME,
-//     database: process.parsed.RDS_DATABASE,
-//     user: process.parsed.RDS_USER,
-//     port: process.parsed.RDS_PORT,
-//     password: process.parsed.RDS_PASSWORD,
-//   }
-// }
+let dbConfig = {
+  host: !isProduction ? process.env.HOST : process.env.RDS_HOSTNAME,
+  database: isProduction ? process.env.DATABASE : process.env.RDS_DATABASE,
+  user: isProduction ? process.env.USER : process.env.RDS_USER,
+  port: isProduction ? process.env.PORT : process.env.RDS_PORT,
+  password: isProduction ? process.env.PASSWORD : process.env.RDS_PASSWORD,
+  connectionLimit: 3,
+  bigIntAsNumber: true 
+}
 
 const pool = mariadb.createPool(dbConfig);
 

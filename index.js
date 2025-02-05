@@ -13,13 +13,10 @@ import user from './routes/user/index.js';
 import { verifyToken } from './middlewares/verify-token.js';
 
 const app = express();
-// dotenv.config();
 
 // environment
-const PORT = process.env?.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 
-console.log('Process', process);
-console.log('Process.env', process.env);
 
 app.use(bodyParser.json(), cors(), bodyParser.urlencoded({ extended: true }));
 

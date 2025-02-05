@@ -1,15 +1,12 @@
 import jwt from 'jsonwebtoken';
 import jwksClient from 'jwks-rsa';
-import dotenv from 'dotenv';
-
-const process = dotenv.config();
 
 const client = jwksClient({
-  jwksUri: process.parsed.AUTH0_KEYS,
+  jwksUri: process.env.AUTH0_KEYS,
 });
 
 // Caminho para a chave privada local
-export const privateKey = process.parsed.PRIVATE_KEY;
+export const privateKey = process.env.PRIVATE_KEY;
 
 // Função para obter a chave pública do JWKS
 const getKey = (header) => {

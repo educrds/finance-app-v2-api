@@ -72,4 +72,3 @@ export const loginUser = async (req, res) => {
 
   return res.status(401).json({ message: 'Credenciais não válidas.' });
 }
-

@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import dotenv from 'dotenv';
 
 // routes
 import categorias from './routes/categorias/index.js';
@@ -15,7 +14,7 @@ import { verifyToken } from './middlewares/verify-token.js';
 const app = express();
 
 // environment
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4201;
 
 
 app.use(bodyParser.json(), cors(), bodyParser.urlencoded({ extended: true }));

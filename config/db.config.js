@@ -8,15 +8,15 @@ if(!isProduction){
 }
 
 let dbConfig = {
-  host: !isProduction ? process.env.HOST : process.env.RDS_HOSTNAME,
-  database: !isProduction ? process.env.DATABASE : process.env.RDS_DATABASE,
-  user: !isProduction ? process.env.USER : process.env.RDS_USER,
-  port: !isProduction ? process.env.DB_PORT : process.env.RDS_DB_PORT,
-  password: !isProduction ? process.env.PASSWORD : process.env.RDS_PASSWORD,
+  host: process.env.RDS_HOSTNAME,
+  database: process.env.RDS_DATABASE,
+  user: process.env.RDS_USER,
+  port: process.env.RDS_DB_PORT,
+  password: process.env.RDS_PASSWORD,
   connectionLimit: 10,
   acquireTimeout: 20000,
   bigIntAsNumber: true,
-  debug: true
+  // debug: true
 }
 
 const pool = mariadb.createPool(dbConfig);

@@ -2,7 +2,7 @@ import { executeQuery } from "../config/db.config.js";
 import { comparePassword, hashPassword } from "../helpers/hash-password.config.js";
 import { privateKey } from "../middlewares/verify-token.js";
 import { insert_preferencia_new_user } from "../queries/preferences/INSERT/index.js";
-import { get_user_by_email, verify_exists_email } from "../queries/user/GET/index.js";
+import { get_logs_users, get_user_by_email, insert_date_access, verify_exists_email } from "../queries/user/GET/index.js";
 import { insert_user_in_bd } from "../queries/user/INSERT/index.js";
 import jwt from 'jsonwebtoken';
 
@@ -30,7 +30,7 @@ export const registerUser = async (req, res) => {
   const params = [auth_name, auth_email, hashPwd];
   result = await executeQuery(insert_user_in_bd, params);
   const insertId = String(result.insertId).replace('n');
-  const preferencesNewUser = await executeQuery(insert_preferencia_new_user, insertId);
+  await executeQuery(insert_preferencia_new_user, insertId);
 
   if (result.affectedRows > 0) {
     if(!socialAuth){
@@ -56,7 +56,10 @@ export const loginUser = async (req, res) => {
   }
 
   result = await executeQuery(get_user_by_email, auth_email);
-  const { usr_id, usr_nome, password_hashed } = result[0];
+  const { usr_id, usr_nome, password_hashed, admin } = result[0];
+  
+  // add datetime access of user
+  await executeQuery(insert_date_access , usr_id);
 
   let checkPwdHash = null;
 
@@ -65,10 +68,20 @@ export const loginUser = async (req, res) => {
   }
 
   if (checkPwdHash || socialAuth) {
-    const payload = { sub: usr_id, name: usr_nome, email: auth_email };
+    const payload = { sub: usr_id, name: usr_nome, email: auth_email, admin };
     const token = jwt.sign(payload, privateKey, signOptions);
     return res.status(200).json({ message: 'Usuário autenticado com sucesso!', token: token });
   }
 
   return res.status(401).json({ message: 'Credenciais não válidas.' });
+}
+
+export const getUsersLogs = async (req, res) => {
+  const result = await executeQuery(get_logs_users);
+  
+  if(result.length > 0){
+    return res.status(200).json(result);
+  } else {
+    return res.status(200).json([]);
+  }
 }

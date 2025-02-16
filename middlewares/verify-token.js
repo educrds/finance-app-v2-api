@@ -56,6 +56,18 @@ export const verifyToken = async (req, res, next) => {
       decoded = await verifyJwtToken(token, privateKey, ['RS256']);
     }
 
+    // Verificar IP e User-Agent
+    const clientIp = req.headers['x-forwarded-for'] || req['connection']['remoteAddress'];
+    const userAgent = req.headers['user-agent'];
+
+    if (decoded.userIp && decoded.userIp !== clientIp) {
+      return res.status(403).send({ message: 'IP não autorizado.' });
+    }
+
+    if (decoded.userAgent && decoded.userAgent !== userAgent) {
+      return res.status(403).send({ message: 'User-Agent não autorizado.' });
+    }
+
     req.body.user = decoded;
     next();
   } catch (err) {

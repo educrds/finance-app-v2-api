@@ -48,6 +48,8 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { data } = req.body;
   const { socialAuth } = req.body;
+  const userAgent = req.headers['user-agent']
+  const userIp = req.headers['x-forwarded-for'] || req['ip'] || req['connection']['remoteAddress'];
   const { auth_email, auth_password } = data;
 
   let result = await executeQuery(verify_exists_email, auth_email);
@@ -68,7 +70,7 @@ export const loginUser = async (req, res) => {
   }
 
   if (checkPwdHash || socialAuth) {
-    const payload = { sub: usr_id, name: usr_nome, email: auth_email, admin };
+    const payload = { sub: usr_id, name: usr_nome, email: auth_email, admin, userIp, userAgent };
     const token = jwt.sign(payload, privateKey, signOptions);
     return res.status(200).json({ message: 'Usuário autenticado com sucesso!', token: token });
   }

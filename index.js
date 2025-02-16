@@ -16,11 +16,11 @@ const app = express();
 // environment
 const PORT = process.env.PORT || 4201;
 
-// const corsSetup = {
-//   origin: ['https://master.d19t7dvyqu5334.amplifyapp.com'],
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//   allowedHeaders: ['Content-Type', 'Authorization']
-// };
+const corsSetup = {
+  origin: ['https://master.d19t7dvyqu5334.amplifyapp.com'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
 
 app.use(bodyParser.json(), cors(), bodyParser.urlencoded({ extended: true }));
 

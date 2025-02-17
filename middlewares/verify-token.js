@@ -57,14 +57,14 @@ export const verifyToken = async (req, res, next) => {
     }
 
     // Verificar IP e User-Agent
-    const clientIp = req.headers['x-forwarded-for'] || req['connection']['remoteAddress'];
+    // const clientIp = req.headers['x-forwarded-for'] || req['connection']['remoteAddress'];
     const userAgent = req.headers['user-agent'];
 
-    if (decoded.userIp && decoded.userIp !== clientIp) {
-      return res.status(403).send({ message: 'IP não autorizado.' });
-    }
+    // if (decoded.userIp && decoded.userIp !== clientIp) {
+    //   return res.status(403).send({ message: 'IP não autorizado.' });
+    // }
 
-    if (decoded.userAgent && decoded.userAgent !== userAgent) {
+    if (decoded?.userAgent !== userAgent) {
       return res.status(403).send({ message: 'User-Agent não autorizado.' });
     }
 
